@@ -18,7 +18,6 @@ class StartScreen extends StatelessWidget {
           Container(
             color: Colors.black.withOpacity(0.4),
           ),
-          // المحتوى
           Padding(
             padding: const EdgeInsets.all(24),
             child: Column(
