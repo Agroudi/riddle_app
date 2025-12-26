@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:riddle_app/screens/levels_screen.dart';
-import '../../widgets/app_button.dart';
+import 'package:riddle_app/widgets/app_button.dart';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({super.key});

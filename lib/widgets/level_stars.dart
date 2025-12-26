@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/colors.dart';
+import 'package:riddle_app/theme/colors.dart';
 
 class LevelStars extends StatelessWidget {
   final int stars;

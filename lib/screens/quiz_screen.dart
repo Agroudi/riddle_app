@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../models/question_model.dart';
-import '../core/questions_data.dart';
-import '../widgets/options_button.dart';
+import 'package:riddle_app/core/questions_data.dart';
+import 'package:riddle_app/models/question_model.dart';
+import 'package:riddle_app/widgets/options_button.dart';
 import 'result_screen.dart';
 
 class QuizScreen extends StatefulWidget {
@@ -50,7 +50,6 @@ class _QuizScreenState extends State<QuizScreen> {
         ).then((_) {
           Navigator.pop(context, percentage);
         });
-
       }
     });
   }

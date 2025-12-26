@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:riddle_app/theme/colors.dart';
-import 'package:riddle_app/theme/pentagon_clipper.dart' show PentagonClipper;
-import '../theme/pentagon_clipper.dart' show PentagonClipper, RoundedPentagonClipper;
+import 'package:riddle_app/theme/pentagon_clipper.dart';
 
 class LevelPentagon extends StatelessWidget {
   final int level;
