@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:riddle_app/core/progress_service.dart';
 import 'package:riddle_app/screens/quiz_screen.dart';
 import 'package:riddle_app/widgets/level_pentagon.dart';
 
@@ -12,14 +13,25 @@ class LevelsScreen extends StatefulWidget {
 class _LevelsScreenState extends State<LevelsScreen> {
   static const int totalLevels = 8;
 
-  final Map<int, int> levelScores = {
-    1: 0, 2: 0, 3: 0, 4: 0,
-    5: 0, 6: 0, 7: 0, 8: 0,
-  };
+  late List<int> levelScores;
+  bool loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    loadProgress();
+  }
+
+  Future<void> loadProgress() async {
+    levelScores = await ProgressService.loadScores();
+    setState(() {
+      loading = false;
+    });
+  }
 
   bool isUnlocked(int level) {
     if (level == 1) return true;
-    return levelScores[level - 1]! >= 50;
+    return levelScores[level - 2] >= 50;
   }
 
   int starsFor(int score) {
@@ -30,43 +42,31 @@ class _LevelsScreenState extends State<LevelsScreen> {
   }
 
   Future<void> openLevel(int level) async {
-    final result = await Navigator.push<int>(
+    final int? score = await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (_) => QuizScreen(level: level),
       ),
     );
 
-    if (result != null) {
-      setState(() {
-        if (result > levelScores[level]!) {
-          levelScores[level] = result;
-        }
-      });
+    if (score == null) return;
+
+    if (score > levelScores[level - 1]) {
+      levelScores[level - 1] = score;
+      await ProgressService.saveScores(levelScores);
     }
+
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    Future<void> openLevel(int level) async {
-      final int? score = await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => QuizScreen(level: level),
-        ),
+    if (loading) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
       );
-
-      if (score == null) return;
-
-      setState(() {
-        levelScores[level] = score;
-      });
     }
 
-    bool isUnlocked(int level) {
-      if (level == 1) return true;
-      return (levelScores[level - 1] ?? 0) >= 50;
-    }
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -81,15 +81,14 @@ class _LevelsScreenState extends State<LevelsScreen> {
             padding: const EdgeInsets.all(20),
             child: GridView.builder(
               itemCount: totalLevels,
-              gridDelegate:
-              const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 30,
                 mainAxisSpacing: 40,
               ),
               itemBuilder: (context, index) {
                 final level = index + 1;
-                final score = levelScores[level]!;
+                final score = levelScores[level - 1];
                 final unlocked = isUnlocked(level);
 
                 return LevelPentagon(

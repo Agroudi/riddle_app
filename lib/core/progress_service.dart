@@ -5,13 +5,20 @@ class ProgressService {
 
   static Future<List<int>> loadScores() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getStringList(key)?.map(int.parse).toList() ??
-        List.filled(8, 0);
+    final data = prefs.getStringList(key);
+
+    if (data == null) {
+      final initial = List.filled(8, 0);
+      await saveScores(initial);
+      return initial;
+    }
+
+    return data.map(int.parse).toList();
   }
 
   static Future<void> saveScores(List<int> scores) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setStringList(
+    await prefs.setStringList(
       key,
       scores.map((e) => e.toString()).toList(),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:riddle_app/theme/colors.dart';
-import '../theme/pentagon_clipper.dart' show PentagonClipper;
+import 'package:riddle_app/theme/pentagon_clipper.dart' show PentagonClipper;
+import '../theme/pentagon_clipper.dart' show PentagonClipper, RoundedPentagonClipper;
 
 class LevelPentagon extends StatelessWidget {
   final int level;
@@ -37,35 +38,67 @@ class LevelPentagon extends StatelessWidget {
                   children: [
                     Positioned(
                       left: 0,
-                      top: 6,
+                      top: 8,
                       child: _star(0),
                     ),
                     Positioned(
-                      top: 0,
+                      top: -2,
                       child: _star(1),
                     ),
                     Positioned(
                       right: 0,
-                      top: 6,
+                      top: 8,
                       child: _star(2),
                     ),
                   ],
                 ),
               ),
             ),
-
             Positioned(
               top: 16,
               child: ClipPath(
-                clipper: PentagonClipper(),
+                clipper: RoundedPentagonClipper(),
                 child: Container(
-                  width: 80,
-                  height: 80,
-                  color: unlocked
-                      ? levelColors[(level - 1) % levelColors.length]
-                      : Colors.grey.shade700,
+                  width: 93,
+                  height: 93,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: unlocked
+                          ? [
+                        levelColors[(level - 1) % levelColors.length].withOpacity(0.95),
+                        levelColors[(level - 1) % levelColors.length].withOpacity(0.65),
+                      ]
+                          : [
+                        Colors.grey.shade600,
+                        Colors.grey.shade800,
+                      ],
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.35),
+                        blurRadius: 8,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
                   child: Stack(
                     children: [
+                      Positioned.fill(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.white.withOpacity(0.12),
+                                Colors.transparent,
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                       ..._bubbles(),
                       Center(
                         child: Column(
@@ -74,7 +107,8 @@ class LevelPentagon extends StatelessWidget {
                             const Text(
                               'LEVEL',
                               style: TextStyle(
-                                fontSize: 10,
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
                                 color: Colors.white70,
                                 letterSpacing: 1,
                               ),
@@ -115,7 +149,7 @@ class LevelPentagon extends StatelessWidget {
   Widget _star(int index) {
     return Icon(
       Icons.star,
-      size: 16,
+      size: 20,
       color: index < stars ? Colors.amber : Colors.white38,
     );
   }
@@ -129,6 +163,11 @@ class LevelPentagon extends StatelessWidget {
       _bubble(50, 40, 4),
       _bubble(32, 58, 3),
       _bubble(14, 52, 3),
+      _bubble(60, 30, 2),
+      _bubble(39, 20, 3),
+      _bubble(60, 58, 10),
+      _bubble(60, 30, 10),
+      _bubble(20, 70, 6),
     ];
   }
 
