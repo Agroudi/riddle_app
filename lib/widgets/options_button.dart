@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class OptionButton extends StatelessWidget {
+class OptionButton extends StatelessWidget
+{
   final String text;
   final VoidCallback onTap;
 
@@ -11,7 +12,8 @@ class OptionButton extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return InkWell(
       borderRadius: BorderRadius.circular(14),
       onTap: onTap,

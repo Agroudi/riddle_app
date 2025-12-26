@@ -10,7 +10,8 @@ class LevelStars extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(3, (i) {
+      children: List.generate(3, (i)
+      {
         return Padding(
           padding: EdgeInsets.only(top: i == 1 ? 6 : 0),
           child: Icon(

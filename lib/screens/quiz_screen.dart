@@ -40,12 +40,17 @@ class _QuizScreenState extends State<QuizScreen> {
           locked = false;
         });
       } else {
-        Navigator.pushReplacement(
+        final percentage = (score / (questions.length * 10) * 100).round();
+
+        Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => ResultScreen(score: score),
+            builder: (_) => ResultScreen(score: percentage),
           ),
-        );
+        ).then((_) {
+          Navigator.pop(context, percentage);
+        });
+
       }
     });
   }
@@ -72,7 +77,6 @@ class _QuizScreenState extends State<QuizScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Top info
                 Text(
                   'Level ${widget.level}',
                   style: const TextStyle(
@@ -89,10 +93,7 @@ class _QuizScreenState extends State<QuizScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-
                 const SizedBox(height: 30),
-
-                // Question box
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(20),
@@ -109,10 +110,7 @@ class _QuizScreenState extends State<QuizScreen> {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 30),
-
-                // Options
                 ...List.generate(q.options.length, (i) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 14),

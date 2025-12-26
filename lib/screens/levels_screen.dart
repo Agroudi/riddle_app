@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:riddle_app/screens/quiz_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../widgets/level_card.dart';
+import 'package:riddle_app/widgets/level_pentagon.dart';
 
 class LevelsScreen extends StatefulWidget {
   const LevelsScreen({super.key});
@@ -13,34 +11,15 @@ class LevelsScreen extends StatefulWidget {
 
 class _LevelsScreenState extends State<LevelsScreen> {
   static const int totalLevels = 8;
-  Map<int, int> levelScores = {};
 
-  @override
-  void initState() {
-    super.initState();
-    loadProgress();
-  }
-
-  Future<void> loadProgress() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      for (int i = 1; i <= totalLevels; i++) {
-        levelScores[i] = prefs.getInt('level_$i') ?? 0;
-      }
-    });
-  }
-
-  Future<void> saveScore(int level, int score) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('level_$level', score);
-    setState(() {
-      levelScores[level] = score;
-    });
-  }
+  final Map<int, int> levelScores = {
+    1: 0, 2: 0, 3: 0, 4: 0,
+    5: 0, 6: 0, 7: 0, 8: 0,
+  };
 
   bool isUnlocked(int level) {
     if (level == 1) return true;
-    return (levelScores[level - 1] ?? 0) >= 50;
+    return levelScores[level - 1]! >= 50;
   }
 
   int starsFor(int score) {
@@ -50,79 +29,76 @@ class _LevelsScreenState extends State<LevelsScreen> {
     return 0;
   }
 
+  Future<void> openLevel(int level) async {
+    final result = await Navigator.push<int>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => QuizScreen(level: level),
+      ),
+    );
+
+    if (result != null) {
+      setState(() {
+        if (result > levelScores[level]!) {
+          levelScores[level] = result;
+        }
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    Future<void> openLevel(int level) async {
+      final int? score = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => QuizScreen(level: level),
+        ),
+      );
+
+      if (score == null) return;
+
+      setState(() {
+        levelScores[level] = score;
+      });
+    }
+
+    bool isUnlocked(int level) {
+      if (level == 1) return true;
+      return (levelScores[level - 1] ?? 0) >= 50;
+    }
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
+            colors: [Color(0xFF1C1B2F), Color(0xFF11101F)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF2E1A47),
-              Color(0xFF1B1037),
-            ],
           ),
         ),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Choose Level',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 30),
+            child: GridView.builder(
+              itemCount: totalLevels,
+              gridDelegate:
+              const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 30,
+                mainAxisSpacing: 40,
+              ),
+              itemBuilder: (context, index) {
+                final level = index + 1;
+                final score = levelScores[level]!;
+                final unlocked = isUnlocked(level);
 
-                Expanded(
-                  child: GridView.builder(
-                    itemCount: totalLevels,
-                    gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 30,
-                      mainAxisSpacing: 40,
-                    ),
-                    itemBuilder: (context, index) {
-                      final level = index + 1;
-                      final score = levelScores[level] ?? 0;
-                      final unlocked = isUnlocked(level);
-
-                      return Transform.translate(
-                        offset: Offset(
-                          index.isOdd ? 30 : 0,
-                          index.isOdd ? 40 : 0,
-                        ),
-                        child: LevelHexagon(
-                          level: level,
-                          stars: starsFor(score),
-                          locked: !unlocked,
-                          onTap: unlocked
-                              ? () async {
-                            final result = await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) =>
-                                    QuizScreen(level: level),
-                              ),
-                            );
-                            if (result != null && result is int) {
-                              await saveScore(level, result);
-                            }
-                          }
-                              : null,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
+                return LevelPentagon(
+                  level: level,
+                  stars: starsFor(score),
+                  unlocked: unlocked,
+                  onTap: unlocked ? () => openLevel(level) : null,
+                );
+              },
             ),
           ),
         ),
