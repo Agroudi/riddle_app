@@ -24,8 +24,8 @@ class OptionButton extends StatelessWidget
           color: Colors.white.withOpacity(0.08),
           borderRadius: BorderRadius.circular(14),
           border: Border.all(
-            color: Colors.white.withOpacity(0.15),
-          ),
+            color: Colors.white.withOpacity(0.15)
+          )
         ),
         child: Row(
           children: [
@@ -36,14 +36,14 @@ class OptionButton extends StatelessWidget
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: Colors.white.withOpacity(0.4),
-                ),
+                  color: Colors.white.withOpacity(0.4)
+                )
               ),
               child: const Icon(
                 Icons.circle,
                 size: 10,
-                color: Colors.white54,
-              ),
+                color: Colors.white54
+              )
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -52,13 +52,13 @@ class OptionButton extends StatelessWidget
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+                  fontWeight: FontWeight.w500
+                )
+              )
+            )
+          ]
+        )
+      )
     );
   }
 }

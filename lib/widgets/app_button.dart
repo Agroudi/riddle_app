@@ -10,7 +10,7 @@ class AppButton extends StatelessWidget {
     super.key,
     required this.title,
     required this.onTap,
-    this.outlined = false,
+    this.outlined = false
   });
 
   @override
@@ -34,10 +34,10 @@ class AppButton extends StatelessWidget {
           style: TextStyle(
             color: outlined ? AppColors.primary : Colors.white,
             fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
+            fontWeight: FontWeight.w600
+          )
+        )
+      )
     );
   }
 }

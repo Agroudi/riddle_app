@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 class RoundedPentagonClipper extends CustomClipper<Path> {
   final double cornerRadius;

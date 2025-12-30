@@ -17,10 +17,10 @@ class LevelStars extends StatelessWidget {
           child: Icon(
             Icons.star,
             size: 18,
-            color: i < stars ? AppColors.star : Colors.white24,
-          ),
+            color: i < stars ? AppColors.star : Colors.white24
+          )
         );
-      }),
+      })
     );
   }
 }

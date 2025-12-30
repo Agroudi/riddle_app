@@ -6,6 +6,6 @@ class Question {
   Question({
     required this.text,
     required this.options,
-    required this.correctIndex,
+    required this.correctIndex
   });
 }

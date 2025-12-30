@@ -17,7 +17,8 @@ class _LevelsScreenState extends State<LevelsScreen> {
   bool loading = true;
 
   @override
-  void initState() {
+  void initState()
+  {
     super.initState();
     loadProgress();
   }
@@ -29,12 +30,14 @@ class _LevelsScreenState extends State<LevelsScreen> {
     });
   }
 
-  bool isUnlocked(int level) {
+  bool isUnlocked(int level)
+  {
     if (level == 1) return true;
     return levelScores[level - 2] >= 50;
   }
 
-  int starsFor(int score) {
+  int starsFor(int score)
+  {
     if (score >= 90) return 3;
     if (score >= 70) return 2;
     if (score >= 50) return 1;
@@ -51,7 +54,8 @@ class _LevelsScreenState extends State<LevelsScreen> {
 
     if (score == null) return;
 
-    if (score > levelScores[level - 1]) {
+    if (score > levelScores[level - 1])
+    {
       levelScores[level - 1] = score;
       await ProgressService.saveScores(levelScores);
     }
@@ -60,10 +64,11 @@ class _LevelsScreenState extends State<LevelsScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     if (loading) {
       return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
+        body: Center(child: CircularProgressIndicator())
       );
     }
 
@@ -73,8 +78,8 @@ class _LevelsScreenState extends State<LevelsScreen> {
           gradient: LinearGradient(
             colors: [Color(0xFF1C1B2F), Color(0xFF11101F)],
             begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
+            end: Alignment.bottomCenter
+          )
         ),
         child: SafeArea(
           child: Padding(
@@ -84,9 +89,10 @@ class _LevelsScreenState extends State<LevelsScreen> {
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 30,
-                mainAxisSpacing: 40,
+                mainAxisSpacing: 40
               ),
-              itemBuilder: (context, index) {
+              itemBuilder: (context, index)
+              {
                 final level = index + 1;
                 final score = levelScores[level - 1];
                 final unlocked = isUnlocked(level);
@@ -95,13 +101,13 @@ class _LevelsScreenState extends State<LevelsScreen> {
                   level: level,
                   stars: starsFor(score),
                   unlocked: unlocked,
-                  onTap: unlocked ? () => openLevel(level) : null,
+                  onTap: unlocked ? () => openLevel(level) : null
                 );
-              },
-            ),
-          ),
-        ),
-      ),
+              }
+            )
+          )
+        )
+      )
     );
   }
 }

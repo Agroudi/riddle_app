@@ -66,9 +66,9 @@ class _QuizScreenState extends State<QuizScreen> {
             end: Alignment.bottomCenter,
             colors: [
               Color(0xFF2E1A47),
-              Color(0xFF1B1037),
-            ],
-          ),
+              Color(0xFF1B1037)
+            ]
+          )
         ),
         child: SafeArea(
           child: Padding(
@@ -80,8 +80,8 @@ class _QuizScreenState extends State<QuizScreen> {
                   'Level ${widget.level}',
                   style: const TextStyle(
                     color: Colors.white70,
-                    fontSize: 16,
-                  ),
+                    fontSize: 16
+                  )
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -90,7 +90,7 @@ class _QuizScreenState extends State<QuizScreen> {
                     color: Colors.white,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                  ),
+                  )
                 ),
                 const SizedBox(height: 30),
                 Container(
@@ -98,16 +98,16 @@ class _QuizScreenState extends State<QuizScreen> {
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: Colors.white10,
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(16)
                   ),
                   child: Text(
                     q.text,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                      fontWeight: FontWeight.w600
+                    )
+                  )
                 ),
                 const SizedBox(height: 30),
                 ...List.generate(q.options.length, (i) {
@@ -115,15 +115,15 @@ class _QuizScreenState extends State<QuizScreen> {
                     padding: const EdgeInsets.only(bottom: 14),
                     child: OptionButton(
                       text: q.options[i],
-                      onTap: () => answer(i),
-                    ),
+                      onTap: () => answer(i)
+                    )
                   );
-                }),
-              ],
-            ),
-          ),
-        ),
-      ),
+                })
+              ]
+            )
+          )
+        )
+      )
     );
   }
 }

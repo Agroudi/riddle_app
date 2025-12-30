@@ -7,7 +7,8 @@ class ProgressService {
     final prefs = await SharedPreferences.getInstance();
     final data = prefs.getStringList(key);
 
-    if (data == null) {
+    if (data == null)
+    {
       final initial = List.filled(8, 0);
       await saveScores(initial);
       return initial;
@@ -20,7 +21,7 @@ class ProgressService {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setStringList(
       key,
-      scores.map((e) => e.toString()).toList(),
+      scores.map((e) => e.toString()).toList()
     );
   }
 }

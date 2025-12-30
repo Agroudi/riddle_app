@@ -73,10 +73,10 @@ class _ResultScreenState extends State<ResultScreen>
                       return Icon(
                         Icons.star,
                         size: 42,
-                        color: i < stars ? Colors.amber : Colors.white24,
+                        color: i < stars ? Colors.amber : Colors.white24
                       );
-                    }),
-                  ),
+                    })
+                  )
                 ),
 
                 const SizedBox(height: 20),
@@ -85,8 +85,8 @@ class _ResultScreenState extends State<ResultScreen>
                   'Score: ${widget.score}%',
                   style: const TextStyle(
                     color: Colors.white70,
-                    fontSize: 18,
-                  ),
+                    fontSize: 18
+                  )
                 ),
 
                 const SizedBox(height: 40),
@@ -94,18 +94,19 @@ class _ResultScreenState extends State<ResultScreen>
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 40, vertical: 14),
+                        horizontal: 40, vertical: 14)
                   ),
-                  onPressed: () {
+                  onPressed: ()
+                  {
                     Navigator.pop(context, widget.score);
                   },
-                  child: const Text('Continue'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+                  child: const Text('Continue')
+                )
+              ]
+            )
+          )
+        )
+      )
     );
   }
 }

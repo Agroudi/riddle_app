@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:riddle_app/screens/start_screen.dart';
 import 'dart:async';
-import '../theme/colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -23,25 +22,25 @@ class _SplashScreenState extends State<SplashScreen>
     // Animation controller
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 2)
     );
 
     _scaleAnimation = Tween<double>(begin: 0.5, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutBack),
+      CurvedAnimation(parent: _controller, curve: Curves.easeOutBack)
     );
 
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeIn),
+      CurvedAnimation(parent: _controller, curve: Curves.easeIn)
     );
 
     _controller.forward();
 
     // Navigate to StartScreen after 3 seconds
-    Timer(const Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 3), ()
+    {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const StartScreen()),
-      );
+        MaterialPageRoute(builder: (_) => const StartScreen()));
     });
   }
 
@@ -60,11 +59,11 @@ class _SplashScreenState extends State<SplashScreen>
           gradient: LinearGradient(
             colors: [
               Colors.purple.shade800,
-              Colors.purple.shade400,
+              Colors.purple.shade400
             ],
             begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+            end: Alignment.bottomRight
+          )
         ),
         child: Center(
           child: FadeTransition(
@@ -83,14 +82,14 @@ class _SplashScreenState extends State<SplashScreen>
                           color: Colors.white.withOpacity(0.6),
                           blurRadius: 20,
                           spreadRadius: 5,
-                        ),
-                      ],
+                        )
+                      ]
                     ),
                     child: const Icon(
                       Icons.lightbulb,
                       size: 100,
-                      color: Colors.yellowAccent,
-                    ),
+                      color: Colors.yellowAccent
+                    )
                   ),
                   const SizedBox(height: 20),
                   const Text(
@@ -104,17 +103,17 @@ class _SplashScreenState extends State<SplashScreen>
                         Shadow(
                           color: Colors.white54,
                           blurRadius: 8,
-                          offset: Offset(0, 0),
+                          offset: Offset(0, 0)
                         )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
+                      ]
+                    )
+                  )
+                ]
+              )
+            )
+          )
+        )
+      )
     );
   }
 }

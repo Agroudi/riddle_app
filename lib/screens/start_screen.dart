@@ -22,21 +22,21 @@ class _StartScreenState extends State<StartScreen>
 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 1000)
     );
 
     _startButtonAnimation =
         Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero).animate(
-          CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+          CurvedAnimation(parent: _controller, curve: Curves.easeOut)
         );
 
     _aboutButtonAnimation =
         Tween<Offset>(begin: const Offset(0, 1.5), end: Offset.zero).animate(
-          CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+          CurvedAnimation(parent: _controller, curve: Curves.easeOut)
         );
 
     _glowAnimation = Tween<double>(begin: 0.3, end: 0.8).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut)
     );
 
     _controller.repeat(reverse: true);
@@ -65,14 +65,14 @@ class _StartScreenState extends State<StartScreen>
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.purple.shade700,
-                ),
+                  color: Colors.purple.shade700
+                )
               ),
               const SizedBox(height: 12),
               const Text(
                 'Created by Abdelrahman ElAgroudy\n\nTest your brain and enjoy solving riddles!',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, color: Colors.black87),
+                style: TextStyle(fontSize: 16, color: Colors.black87)
               ),
               const SizedBox(height: 20),
               SizedBox(
@@ -82,16 +82,16 @@ class _StartScreenState extends State<StartScreen>
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.purple.shade700,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
+                      borderRadius: BorderRadius.circular(12)
+                    )
                   ),
-                  child: const Text('Close'),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+                  child: const Text('Close')
+                )
+              )
+            ]
+          )
+        )
+      )
     );
   }
   @override
@@ -102,11 +102,11 @@ class _StartScreenState extends State<StartScreen>
           gradient: LinearGradient(
             colors: [
               Color(0xFF6A11CB),
-              Color(0xFF2575FC),
+              Color(0xFF2575FC)
             ],
             begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+            end: Alignment.bottomRight
+          )
         ),
         child: SafeArea(
           child: Padding(
@@ -118,7 +118,8 @@ class _StartScreenState extends State<StartScreen>
                   child: Center(
                     child: AnimatedBuilder(
                       animation: _glowAnimation,
-                      builder: (context, child) {
+                      builder: (context, child)
+                      {
                         return Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
@@ -126,19 +127,19 @@ class _StartScreenState extends State<StartScreen>
                               BoxShadow(
                                 color: Colors.yellow.withOpacity(_glowAnimation.value),
                                 blurRadius: 40,
-                                spreadRadius: 10,
-                              ),
-                            ],
+                                spreadRadius: 10
+                              )
+                            ]
                           ),
                           child: const Icon(
                             Icons.lightbulb,
                             size: 100,
-                            color: Colors.yellowAccent,
-                          ),
+                            color: Colors.yellowAccent
+                          )
                         );
-                      },
-                    ),
-                  ),
+                      }
+                    )
+                  )
                 ),
                 SlideTransition(
                   position: _startButtonAnimation,
@@ -148,11 +149,11 @@ class _StartScreenState extends State<StartScreen>
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => const LevelsScreen(),
-                        ),
+                          builder: (_) => const LevelsScreen()
+                        )
                       );
-                    },
-                  ),
+                    }
+                  )
                 ),
                 const SizedBox(height: 16),
                 SlideTransition(
@@ -160,15 +161,15 @@ class _StartScreenState extends State<StartScreen>
                   child: AppButton(
                     title: 'About',
                     outlined: true,
-                    onTap: () => _showAboutDialog(context),
-                  ),
+                    onTap: () => _showAboutDialog(context)
+                  )
                 ),
-                const SizedBox(height: 40),
-              ],
-            ),
-          ),
-        ),
-      ),
+                const SizedBox(height: 40)
+              ]
+            )
+          )
+        )
+      )
     );
   }
 }

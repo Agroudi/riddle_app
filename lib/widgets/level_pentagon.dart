@@ -38,20 +38,20 @@ class LevelPentagon extends StatelessWidget {
                     Positioned(
                       left: 0,
                       top: 8,
-                      child: _star(0),
+                      child: _star(0)
                     ),
                     Positioned(
                       top: -2,
-                      child: _star(1),
+                      child: _star(1)
                     ),
                     Positioned(
                       right: 0,
                       top: 8,
-                      child: _star(2),
-                    ),
-                  ],
-                ),
-              ),
+                      child: _star(2)
+                    )
+                  ]
+                )
+              )
             ),
             Positioned(
               top: 16,
@@ -67,20 +67,20 @@ class LevelPentagon extends StatelessWidget {
                       colors: unlocked
                           ? [
                         levelColors[(level - 1) % levelColors.length].withOpacity(0.95),
-                        levelColors[(level - 1) % levelColors.length].withOpacity(0.65),
+                        levelColors[(level - 1) % levelColors.length].withOpacity(0.65)
                       ]
                           : [
                         Colors.grey.shade600,
-                        Colors.grey.shade800,
-                      ],
+                        Colors.grey.shade800
+                      ]
                     ),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.35),
                         blurRadius: 8,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
+                        offset: const Offset(0, 4)
+                      )
+                    ]
                   ),
                   child: Stack(
                     children: [
@@ -92,11 +92,11 @@ class LevelPentagon extends StatelessWidget {
                               end: Alignment.bottomCenter,
                               colors: [
                                 Colors.white.withOpacity(0.12),
-                                Colors.transparent,
-                              ],
-                            ),
-                          ),
-                        ),
+                                Colors.transparent
+                              ]
+                            )
+                          )
+                        )
                       ),
                       ..._bubbles(),
                       Center(
@@ -109,19 +109,19 @@ class LevelPentagon extends StatelessWidget {
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white70,
-                                letterSpacing: 1,
-                              ),
+                                letterSpacing: 1
+                              )
                             ),
                             Text(
                               level.toString().padLeft(2, '0'),
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
+                                color: Colors.white
+                              )
+                            )
+                          ]
+                        )
                       ),
                       if (!unlocked)
                         const Positioned(
@@ -131,25 +131,26 @@ class LevelPentagon extends StatelessWidget {
                           child: Icon(
                             Icons.lock,
                             size: 18,
-                            color: Colors.white70,
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+                            color: Colors.white70
+                          )
+                        )
+                    ]
+                  )
+                )
+              )
+            )
+          ]
+        )
+      )
     );
   }
 
-  Widget _star(int index) {
+  Widget _star(int index)
+  {
     return Icon(
       Icons.star,
       size: 20,
-      color: index < stars ? Colors.amber : Colors.white38,
+      color: index < stars ? Colors.amber : Colors.white38
     );
   }
 
@@ -180,9 +181,9 @@ class LevelPentagon extends StatelessWidget {
         height: size,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.white.withOpacity(0.18),
-        ),
-      ),
+          color: Colors.white.withOpacity(0.18)
+        )
+      )
     );
   }
 }
